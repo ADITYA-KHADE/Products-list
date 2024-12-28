@@ -5,7 +5,6 @@ import Signup from "./pages/Signup";
 import Intro from "./pages/Intro"
 import { Toaster } from "react-hot-toast";
 import { Routes, Route, Navigate } from "react-router-dom";
-// import Navbar from "./components/Navbar";
 import { useAuthContext } from "./contexts/AuthContext";
 import Home from "./pages/Home";
 import File from "./pages/File";
