@@ -16,17 +16,9 @@ const UserModelSchema = new mongoose.Schema({
     },
     role:{
         type: String,
-        default: "student",
+        default: "user",
     },
-    subject:{
-        type: String,
-        required:true,
-        default: '',
-    },
-    totalpoints:{
-        type: Number,
-        default: 0,
-    },
+
 },{
     timestamps: true,
 });

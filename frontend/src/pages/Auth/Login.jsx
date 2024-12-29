@@ -1,9 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Logo from "../assets/logo.jpg";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useAuthContext } from "../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 
 const Login = () => {
   const { setAuthUser } = useAuthContext();
@@ -40,7 +39,6 @@ const Login = () => {
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
       <div className="bg-white mt-10 sm:mx-auto sm:w-full sm:max-w-sm rounded-3xl">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img className="mx-auto h-28 w-auto" src={Logo} alt="Your Company" />
           <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign in to your account
           </h2>

@@ -1,27 +1,21 @@
-import React from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-import { useFieldContext } from "../contexts/FieldContext";
-import Pending from "../components/Query/Pending";
-import Completed from "../components/Query/Completed";
-import HistoryCoin from "../components/Query/HistoryCoin";
-import Upload from "../components/Query/Upload";
+import React from 'react'
+import Navbar from "../Components/Navbar/Navbar";
+import ProductsList from "../Components/ProductsList/ProductsList";
+import AddProduct from "../Components/CRUD/AddProduct";
+import { useTheme } from "../Contexts/ThemeContext";
 
 const Home = () => {
-  const { value } = useFieldContext();
-
+  const [activetab, setActivetab] = React.useState("products");
+  const { theme } = useTheme();
   return (
-    <div className="flex flex-col min-h-screen">
-      <Navbar />
-      <div className="flex-grow">
-        {value === "completed" && <Completed />}
-        {value === "pending" && <Pending />}
-        {value === "history" && <HistoryCoin />}
-        {value === "upload" && <Upload />}
-      </div>
-      <Footer />
+    <>
+    <Navbar activetab={activetab} setActivetab={setActivetab} />
+    <div className={`p-5 ${theme === "dark" ? "bg-gray-900 text-white" : "bg-slate-200 text-gray-900"}`}>
+    {activetab === "products" && <ProductsList />}
+    {activetab === "addproduct" && <AddProduct />}
     </div>
-  );
-};
+    </>
+  )
+}
 
-export default Home;
+export default Home

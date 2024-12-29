@@ -1,15 +1,14 @@
 import React from "react";
 import { useEffect } from "react";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Intro from "./pages/Intro"
+import Login from "./Pages/Auth/Login";
+import Signup from "./pages/Auth/Signup";
+import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./contexts/AuthContext";
-import Home from "./pages/Home";
-import File from "./pages/File";
+import ProductInfo from "./Components/ProductInfo/ProductInfo"
+import "./App.css";
 
-import "./App.css"
 const App = () => {
   const { authUser } = useAuthContext();
   useEffect(() => {
@@ -49,12 +48,8 @@ const App = () => {
           element={authUser ? <Navigate to="/" /> : <Signup />}
         />
         <Route
-          path="/file/:id"
-          element={authUser ? <File /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/intro"
-          element={<Intro/>}
+          path="/product/:id"
+          element={authUser ? <ProductInfo /> : <Navigate to="/login" />}
         />
       </Routes>
       <Toaster />

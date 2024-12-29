@@ -1,10 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../assets/logo.jpg";
-import RoleCheckbox from "../components/RoleCheckbox"
 import { toast } from "react-hot-toast";
-import {useAuthContext} from "../contexts/AuthContext"
+import {useAuthContext} from "../../contexts/AuthContext"
 
 const signup = () => {
   const {setAuthUser}=useAuthContext();
@@ -13,8 +11,6 @@ const signup = () => {
     email: "",
     password: "",
     confirmpassword: "",
-    role: "",
-    subject: "",
   });
 
   const handleSubmit = async (e) => {
@@ -30,8 +26,6 @@ const signup = () => {
           email: inputs.email,
           password: inputs.password,
           confirmpassword: inputs.confirmpassword,
-          role: inputs.role,
-          subject: inputs.subject,
         }),
       });
       const data = await res.json();
@@ -55,7 +49,7 @@ const signup = () => {
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-3 lg:px-8">
       <div className="bg-white  sm:mx-auto sm:w-full sm:max-w-sm rounded-3xl">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img className="mx-auto h-24 w-auto" src={Logo} alt="Your Company" />
+
           <h2 className=" text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Sign up your account
           </h2>
@@ -158,30 +152,6 @@ const signup = () => {
                 />
               </div>
             </div>
-            <div>
-              <label
-                htmlFor="subject"
-                className="block text-sm font-medium leading-6 px-3 text-gray-900"
-              >
-                Email
-              </label>
-              <div className="mt-2 px-3">
-                <input
-                  id="subject"
-                  name="subject"
-                  type="text"
-                  autoComplete="text"
-                  placeholder="Enter only one subject"
-                  value={inputs.subject}
-                  onChange={(e) =>
-                    setInputs({ ...inputs, subject: e.target.value })
-                  }
-                  required
-                  className="bg-white text-gray-900 block w-full rounded-md border-0 py-1.5  shadow-sm ring-1 ring-inset  placeholder:text-gray-400  sm:text-sm sm:leading-6"
-                />
-              </div>
-            </div>
-            <RoleCheckbox onCheckboxChange={handleCheckboxChange} selectedRole={inputs.role} />
             <div className="px-3">
               <button
                 type="submit"

@@ -3,7 +3,7 @@ const authTokenGenerate = require("../security/generateToken");
 
 const signup = async (req, res) => {
   try {
-    const { name, email, password, confirmpassword, role, subject } = req.body;
+    const { name, email, password, confirmpassword } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -19,9 +19,7 @@ const signup = async (req, res) => {
       name,
       email,
       password,
-      role,
-      subject,
-      totalpoints: 0,
+      role:"user",
     });
 
     await newUser.save();
@@ -31,7 +29,8 @@ const signup = async (req, res) => {
         _id: newUser._id,
         name: newUser.name,
         email: newUser.email,
-        message: "registered successfully",
+        role: newUser.role,
+        message: "user registered successfully",
       });
     } else {
       res.status(400).json({ message: "User not registered" });
@@ -63,7 +62,6 @@ const login = async (req, res) => {
       name: user.name,
       message: "logged in successfully",
       role:user.role,
-      totalpoints:user.totalpoints,
     });
   } catch (error) {
     res.status(500).send(error.message);
