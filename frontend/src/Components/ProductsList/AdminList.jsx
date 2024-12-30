@@ -4,19 +4,22 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
 import Product from "../../assets/Product";
+import UpdateProduct from "../CRUD/UpdateProduct";
+import DeleteProduct from "../CRUD/DeleteProduct";
+import Search from "./Search";
 
 const AdminList = () => {
-  const [products, setProducts] = useState(Product);
+  const products = Product;
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5);
   const [deleteModal, setDeleteModal] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
-  const [productData, setProductData] = useState({});
+  const [productData, setProductData] = useState(Product);
   const [loading, setLoading] = useState(false);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(
+  const currentProducts = productData.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   );
@@ -50,6 +53,7 @@ const AdminList = () => {
         </div>
       ) : (
         <>
+          <Search originalData={products} setalldata={setProductData} />
           <div className="overflow-x-auto bg-white shadow-2xl rounded-lg">
             <table className="min-w-full table-auto border-collapse font-poppins">
               <thead>
@@ -122,21 +126,21 @@ const AdminList = () => {
               page={currentPage}
               onChange={handlePageChange}
               color="primary"
-              className="shadow-lg rounded bg-white p-2 rounded-3xl"
+              className="shadow-lg bg-white p-2 rounded-3xl"
             />
           </div>
         </>
       )}
 
       {updateModal && (
-        <UpdateModal
+        <UpdateProduct
           productData={productData}
           setUpdateModal={setUpdateModal}
         />
       )}
 
       {deleteModal && (
-        <DeleteModal
+        <DeleteProduct
           productData={productData}
           setDeleteModal={setDeleteModal}
         />
