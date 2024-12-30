@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Login from "./Pages/Auth/Login";
-import Signup from "./pages/Auth/Signup";
-import Home from "./pages/Home";
+import Signup from "./Pages/Auth/Signup";
+import Home from "./Pages/Home";
 import { Toaster } from "react-hot-toast";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useAuthContext } from "./Contexts/AuthContext";
@@ -39,7 +39,7 @@ const App = () => {
     if (authUser) {
       fetchData();
     }
-  }, [authUser?._id]); // Dependency on authUser._id ensures the effect runs when the authUser changes
+  }, [authUser?._id]);
 
   return (
     <div className="min-h-screen flex flex-col">
