@@ -4,7 +4,7 @@ import Signup from "./pages/Auth/Signup";
 import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useAuthContext } from "./contexts/AuthContext";
+import { useAuthContext } from "./Contexts/AuthContext";
 import ProductInfo from "./Components/ProductInfo/ProductInfo";
 import "./App.css";
 import Footer from "./Components/Footer/Footer";

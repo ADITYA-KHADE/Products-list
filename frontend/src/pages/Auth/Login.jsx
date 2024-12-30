@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../Contexts/AuthContext";
 
 const Login = () => {
   const { setAuthUser } = useAuthContext();

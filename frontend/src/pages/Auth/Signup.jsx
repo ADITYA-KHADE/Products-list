@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
-import { useAuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../Contexts/AuthContext";
 
 const Signup = () => {
   const { setAuthUser } = useAuthContext();
@@ -81,9 +81,7 @@ const Signup = () => {
                 name="name"
                 type="text"
                 value={inputs.name}
-                onChange={(e) =>
-                  setInputs({ ...inputs, name: e.target.value })
-                }
+                onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
                 placeholder="Enter your name"
                 required
                 className="block w-full px-4 py-2 border bg-slate-200 text-gray-900 border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
