@@ -16,6 +16,7 @@
     "@heroicons/react": "^2.2.0",
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
+    "productlist": "file:..",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.4.1",

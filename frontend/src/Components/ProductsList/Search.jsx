@@ -34,8 +34,8 @@ const Search = ({ originalData, setalldata }) => {
 
   return (
     <div
-      className={`mb-4 flex flex-col md:flex-row gap-4 items-center p-4 rounded-md ${
-        theme === "dark" ? "bg-gray-800 text-white" : "bg-slate-200 text-black"
+      className={`mb-4 flex flex-col md:flex-row gap-4 items-center p-4  rounded-md ${
+        theme !== "dark" ? "bg-slate-400 text-white" : "bg-slate-400 text-black"
       }`}
     >
       <input
@@ -44,14 +44,14 @@ const Search = ({ originalData, setalldata }) => {
         value={search}
         onChange={handleSearch}
         className={`border p-2 rounded-md w-full md:w-1/3 ${
-          theme === "dark" ? "bg-gray-700 text-white" : "bg-white text-black"
+          theme === "dark" ? "bg-gray-700 text-white" : "bg-slate-300 text-black"
         }`}
       />
       <select
         value={sort}
         onChange={handleSort}
         className={`border p-2 rounded-md w-36 ${
-          theme === "dark" ? "bg-gray-700 text-white" : "bg-white text-black"
+          theme === "dark" ? "bg-gray-700 text-white" : "bg-slate-300 text-black"
         }`}
       >
         <option value="ascending">Ascending</option>

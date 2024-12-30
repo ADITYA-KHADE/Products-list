@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import products from "../../assets/Product";
+import React, { useState, useEffect } from "react";
 import Cart from "../Cart/Cart";
 import Pagination from "@mui/material/Pagination";
 import Search from "./Search";
@@ -7,16 +6,43 @@ import { useTheme } from "../../Contexts/ThemeContext";
 import { Link } from "react-router-dom";
 
 const ProductsList = () => {
-  const originalData = products;
-  const [data, setData] = useState(originalData);
+  const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 9;
   const { theme } = useTheme();
 
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch("/api/product/");
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const result = await response.json();
+        if (!Array.isArray(result.data)) {
+          throw new Error("API response is not an array");
+        }
+
+
+        const sortedData = result.data.sort((a, b) => {
+          return a.name.localeCompare(b.name); 
+        });
+
+        setData(sortedData);
+        setFilteredData(sortedData);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(data.length / usersPerPage);
+  const currentUsers = filteredData.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(filteredData.length / usersPerPage);
 
   const handlePageChange = (event, page) => setCurrentPage(page);
 
@@ -28,10 +54,12 @@ const ProductsList = () => {
           : "bg-slate-200 text-gray-900"
       }`}
     >
-      <Search originalData={originalData} setalldata={setData} />
+      <div className="lg:mx-6">
+        <Search originalData={data} setalldata={setFilteredData} />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentUsers.map((product) => (
-          <Link to={`/product/${product.id}`} key={product.id}>
+          <Link to={`/product/${product._id}`} key={product._id}>
             <Cart product={product} />
           </Link>
         ))}

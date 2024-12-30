@@ -98,7 +98,7 @@ const Navbar = ({ activetab, setActivetab }) => {
           {navigation.map((item) => (
             <div
               key={item.name}
-              className="cursor-pointer text-base font-semibold leading-6"
+              className={`cursor-pointer text-base font-semibold leading-6 `}
             >
               {item.name !== "Add Product" ||
               (authUser && authUser.role === "admin") ? (

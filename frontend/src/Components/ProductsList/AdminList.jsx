@@ -1,37 +1,69 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Pagination from "@mui/material/Pagination";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Tooltip from "@mui/material/Tooltip";
-import Product from "../../assets/Product";
+import Search from "./Search";
 import UpdateProduct from "../CRUD/UpdateProduct";
 import DeleteProduct from "../CRUD/DeleteProduct";
-import Search from "./Search";
 
 const AdminList = () => {
-  const products = Product;
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(5);
   const [deleteModal, setDeleteModal] = useState(false);
   const [updateModal, setUpdateModal] = useState(false);
-  const [productData, setProductData] = useState(Product);
+  const [products, setProducts] = useState([]);
+  const [productData, setProductData] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [reload, setReload] = useState(false);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch("/api/product/");
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const result = await response.json();
+        if (!Array.isArray(result.data)) {
+          throw new Error("API response is not an array");
+        }
+
+
+        const sortedProducts = result.data.sort((a, b) => {
+          return a.name.localeCompare(b.name); 
+    
+        });
+
+        setProducts(sortedProducts);
+        setProductData(sortedProducts);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, [reload]);
 
   const indexOfLastProduct = currentPage * productsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = productData.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  );
+  const currentProducts = Array.isArray(productData)
+    ? productData.slice(indexOfFirstProduct, indexOfLastProduct)
+    : [];
+
   const totalPages = Math.ceil(products.length / productsPerPage);
 
   const handleUpdate = (product) => {
-    setProductData(product);
+    setSelectedProduct(product);
     setUpdateModal(true);
   };
 
   const handleDelete = (product) => {
-    setProductData(product);
+    setSelectedProduct(product);
     setDeleteModal(true);
   };
 
@@ -134,15 +166,17 @@ const AdminList = () => {
 
       {updateModal && (
         <UpdateProduct
-          productData={productData}
+          productData={selectedProduct}
           setUpdateModal={setUpdateModal}
+          setReload={setReload}
         />
       )}
 
       {deleteModal && (
         <DeleteProduct
-          productData={productData}
+          productData={selectedProduct}
           setDeleteModal={setDeleteModal}
+          setReload={setReload}
         />
       )}
     </div>
