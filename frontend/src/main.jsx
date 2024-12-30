@@ -9,11 +9,13 @@ import {BrowserRouter} from "react-router-dom";
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
-    <ThemeProvider>
+
       <AuthProvider>
+      <ThemeProvider>
         <App />
+      </ThemeProvider>
       </AuthProvider>
-    </ThemeProvider>
+
     </BrowserRouter>
   </StrictMode>,
 )
