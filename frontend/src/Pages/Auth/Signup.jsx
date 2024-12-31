@@ -17,6 +17,7 @@ const Signup = () => {
     e.preventDefault();
 
     if (inputs.password !== inputs.confirmpassword) {
+      console.log(inputs.password,inputs.confirmpassword)
       toast.error("Passwords do not match.");
       return;
     }
@@ -32,6 +33,7 @@ const Signup = () => {
           name: inputs.name,
           email: inputs.email,
           password: inputs.password,
+          confirmpassword: inputs.confirmpassword
         }),
       });
 

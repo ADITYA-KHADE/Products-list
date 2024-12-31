@@ -8,7 +8,8 @@ const Search = ({ originalData, setalldata }) => {
 
   const filterAndSortData = (searchValue, sortOrder) => {
     const filtered = originalData.filter((data) =>
-      data.name.toLowerCase().includes(searchValue.toLowerCase())
+      data.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+      data.description.toLowerCase().includes(searchValue.toLowerCase())
     );
 
     const sorted = [...filtered].sort((a, b) =>

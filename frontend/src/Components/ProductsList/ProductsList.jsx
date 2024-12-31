@@ -26,7 +26,7 @@ const ProductsList = () => {
 
 
         const sortedData = result.data.sort((a, b) => {
-          return a.name.localeCompare(b.name); 
+          return a.price - b.price;
         });
 
         setData(sortedData);

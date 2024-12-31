@@ -12,6 +12,7 @@ const signup = async (req, res) => {
     }
 
     if (password !== confirmpassword) {
+      console.log(password,confirmpassword)
       return res.status(400).json({ message: "Password does not match" });
     }
 
